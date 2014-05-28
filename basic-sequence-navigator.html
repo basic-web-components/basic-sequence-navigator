@@ -8,12 +8,36 @@
   :host {
     display: block;
   }
+
+  #sequenceNavigationContainer {
+    align-items: center;
+    display: flex;
+  }
+
+  .navigationButton {
+    background: white;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    font-family: monospace; /* Less than/greater than tend to look better */
+    font-size: 1.5em;
+    font-weight: bold;
+    height: 1.5em;
+    margin: 0;
+  }
+  .navigationButton:hover:not(:disabled) {
+    border-color: #666;
+  }
+  .navigationButton:disabled {
+    color: #aaa;
+  }
   </style>
-  <button on-click="{{previous}}" disabled?="{{!canGoPrevious}}">Previous</button>
-  <button on-click="{{next}}" disabled?="{{!canGoNext}}">Next</button>
-  <basic-sequence id="sequence" canGoNext="{{canGoNext}}" canGoPrevious="{{canGoPrevious}}">
-    <content></content>
-  </basic-sequence>
+  <div id="sequenceNavigationContainer">
+    <button class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}">&lt;</button>
+    <basic-sequence id="sequence" canGoNext="{{canGoNext}}" canGoPrevious="{{canGoPrevious}}">
+      <content></content>
+    </basic-sequence>
+    <button class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}">&gt;</button>
+  </div>
 </template>
 
 <script>
@@ -27,6 +51,27 @@ Polymer( "basic-sequence-navigator", {
    */
   next: function() {
     this.$.sequence.next();
+  },
+
+  ready: function() {
+    this.super();
+    document.addEventListener( "keydown", function( event ) {
+      var handled;
+      switch ( event.which ) { 
+        case 37: // Left
+          this.previous();
+          handled = true;
+          break;
+
+        case 39: // Right
+          this.next();
+          handled = true;
+          break;
+      }
+      if ( handled ) {
+        event.stopPropagation();
+      }
+    }.bind( this ));
   },
 
   /**
