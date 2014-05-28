@@ -5,10 +5,12 @@
   "license": "MIT",
   "main": "basic-sequence-navigator.html",
   "dependencies": {
-    "basic-modes": "basic-web-components/basic-modes#master"
+    "basic-modes": "basic-web-components/basic-modes#master",
+    "polymer": "Polymer/polymer#master"
   },
   "dev-dependencies": {
-    "basic-framed-content": "basic-web-components/basic-framed-content#master"
+    "basic-framed-content": "basic-web-components/basic-framed-content#master",
+    "lorem-pixel": "JanMiksovsky/lorem-pixel"
   },
   "keywords": [
     "basic-web-components",

@@ -1,0 +1,25 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../basic-modes/basic-modes.html">
+
+<polymer-element name="basic-sequence-navigator">
+
+<template>
+  <style>
+  :host {
+    display: block;
+  }
+  </style>
+  <button on-click="{{$.modes.previous}}" disabled?="{{!previousEnabled}}">Previous</button>
+  <button on-click="{{$.modes.next}}" disabled?="{{!nextEnabled}}">Next</button>
+  <basic-modes id="modes" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
+    <content></content>
+  </basic-modes>
+</template>
+
+<script>
+Polymer( "basic-sequence-navigator", {
+  
+});
+</script>
+
+</polymer-element>
