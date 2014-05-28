@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "basic-sequence-navigator.html",
   "dependencies": {
-    "basic-modes": "basic-web-components/basic-modes#master",
+    "basic-sequence": "basic-web-components/basic-sequence#master",
     "polymer": "Polymer/polymer#master"
   },
   "dev-dependencies": {

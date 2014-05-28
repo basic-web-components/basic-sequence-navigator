@@ -1,5 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../basic-modes/basic-modes.html">
+<link rel="import" href="../basic-sequence/basic-sequence.html">
 
 <polymer-element name="basic-sequence-navigator">
 
@@ -9,22 +9,34 @@
     display: block;
   }
   </style>
-  <button on-click="{{previous}}" disabled?="{{!previousEnabled}}">Previous</button>
-  <button on-click="{{next}}" disabled?="{{!nextEnabled}}">Next</button>
-  <basic-modes id="modes" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
+  <button on-click="{{previous}}" disabled?="{{!canGoPrevious}}">Previous</button>
+  <button on-click="{{next}}" disabled?="{{!canGoNext}}">Next</button>
+  <basic-sequence id="sequence" canGoNext="{{canGoNext}}" canGoPrevious="{{canGoPrevious}}">
     <content></content>
-  </basic-modes>
+  </basic-sequence>
 </template>
 
 <script>
 Polymer( "basic-sequence-navigator", {
 
+  /**
+   * Move to the next child in the sequence of children.
+   * If the last child is already the active one being shown, this has no effect.
+   *
+   * @method next
+   */
   next: function() {
-    this.$.modes.next();
+    this.$.sequence.next();
   },
 
+  /**
+   * Move to the previous child in the sequence of children.
+   * If the first child is already the active one being shown, this has no effect.
+   *
+   * @method previous
+   */
   previous: function() {
-    this.$.modes.previous();
+    this.$.sequence.previous();
   }
   
 });
