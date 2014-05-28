@@ -9,8 +9,8 @@
     display: block;
   }
   </style>
-  <button on-click="{{$.modes.previous}}" disabled?="{{!previousEnabled}}">Previous</button>
-  <button on-click="{{$.modes.next}}" disabled?="{{!nextEnabled}}">Next</button>
+  <button on-click="{{previous}}" disabled?="{{!previousEnabled}}">Previous</button>
+  <button on-click="{{next}}" disabled?="{{!nextEnabled}}">Next</button>
   <basic-modes id="modes" canGoNext="{{nextEnabled}}" canGoPrevious="{{previousEnabled}}">
     <content></content>
   </basic-modes>
@@ -18,6 +18,14 @@
 
 <script>
 Polymer( "basic-sequence-navigator", {
+
+  next: function() {
+    this.$.modes.next();
+  },
+
+  previous: function() {
+    this.$.modes.previous();
+  }
   
 });
 </script>

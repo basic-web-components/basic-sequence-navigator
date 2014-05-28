@@ -9,8 +9,7 @@
     "polymer": "Polymer/polymer#master"
   },
   "dev-dependencies": {
-    "basic-framed-content": "basic-web-components/basic-framed-content#master",
-    "lorem-pixel": "JanMiksovsky/lorem-pixel"
+    "basic-framed-content": "basic-web-components/basic-framed-content#master"
   },
   "keywords": [
     "basic-web-components",
