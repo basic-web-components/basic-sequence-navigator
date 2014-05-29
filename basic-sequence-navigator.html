@@ -1,7 +1,13 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../basic-sequence/basic-sequence.html">
 
-<polymer-element name="basic-sequence-navigator">
+<!--
+TODO: Make component focusable, don't wire up document handler (by default).
+outline: -webkit-focus-ring-color auto 5px;
+Use icons from core-icon
+-->
+
+<polymer-element name="basic-sequence-navigator" attributes="selected">
 
 <template>
   <style>
@@ -35,7 +41,7 @@
   </style>
   <div id="sequenceNavigationContainer">
     <button class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}">&lt;</button>
-    <basic-sequence id="sequence" canGoNext="{{canGoNext}}" canGoPrevious="{{canGoPrevious}}">
+    <basic-sequence id="sequence" selected="{{selected}}" canGoNext="{{canGoNext}}" canGoPrevious="{{canGoPrevious}}">
       <content></content>
     </basic-sequence>
     <button class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}">&gt;</button>
@@ -57,6 +63,11 @@ Polymer( "basic-sequence-navigator", {
 
   ready: function() {
     this.super();
+    this.$.sequence.addEventListener( "core-select", function( event ) {
+      if ( event.detail.isSelected ) {
+        this._slideToChild( event.detail.item );
+      }
+    }.bind( this ));
     document.addEventListener( "keydown", function( event ) {
       var handled;
       switch ( event.which ) { 
@@ -84,7 +95,30 @@ Polymer( "basic-sequence-navigator", {
    */
   previous: function() {
     this.$.sequence.previous();
-  }
+  },
+
+  _slideToChild: function( newItem ) {
+    var newIndex = Array.prototype.indexOf.call( this.$.sequence.items, newItem );
+    if ( newIndex < 0 ) {
+      console.log( "couldn't find item" );
+      return;
+    }
+    var oldIndex = this._previousSelectionIndex;
+    this._previousSelectionIndex = newIndex;
+    if ( oldIndex == null ) {
+      // First time selecting, no slide necessary.
+      return;
+    }
+    if ( newIndex === oldIndex ) {
+      // We shouldn't have received an event in this case, but just in case...
+      return;
+    }
+    var direction = ( newIndex > oldIndex );
+    var arrow = direction ? " -> " : " <- ";
+    console.log( oldIndex + arrow + newIndex );
+  },
+
+  _previousSelectionIndex: null
   
 });
 </script>
