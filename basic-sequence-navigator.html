@@ -63,11 +63,6 @@ Polymer( "basic-sequence-navigator", {
 
   ready: function() {
     this.super();
-    this.$.sequence.addEventListener( "core-select", function( event ) {
-      if ( event.detail.isSelected ) {
-        this._slideToChild( event.detail.item );
-      }
-    }.bind( this ));
     document.addEventListener( "keydown", function( event ) {
       var handled;
       switch ( event.which ) { 
@@ -95,30 +90,7 @@ Polymer( "basic-sequence-navigator", {
    */
   previous: function() {
     this.$.sequence.previous();
-  },
-
-  _slideToChild: function( newItem ) {
-    var newIndex = Array.prototype.indexOf.call( this.$.sequence.items, newItem );
-    if ( newIndex < 0 ) {
-      console.log( "couldn't find item" );
-      return;
-    }
-    var oldIndex = this._previousSelectionIndex;
-    this._previousSelectionIndex = newIndex;
-    if ( oldIndex == null ) {
-      // First time selecting, no slide necessary.
-      return;
-    }
-    if ( newIndex === oldIndex ) {
-      // We shouldn't have received an event in this case, but just in case...
-      return;
-    }
-    var direction = ( newIndex > oldIndex );
-    var arrow = direction ? " -> " : " <- ";
-    console.log( oldIndex + arrow + newIndex );
-  },
-
-  _previousSelectionIndex: null
+  }
   
 });
 </script>
