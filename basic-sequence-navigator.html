@@ -19,7 +19,7 @@ showing focus on the individual buttons within the element.
 <link rel="import" href="../core-icons/core-icons.html">
 <link rel="import" href="../basic-sequence/basic-sequence.html">
 
-<polymer-element name="basic-sequence-navigator" attributes="effect selected">
+<polymer-element name="basic-sequence-navigator" attributes="effect selected wrapAround">
 
 <template>
   <style>
@@ -54,7 +54,7 @@ showing focus on the individual buttons within the element.
     fill: black;
   }
   .navigationButton:disabled {
-    fill: #aaa;
+    fill: #ccc;
   }
 
   #sequence {
@@ -71,10 +71,12 @@ showing focus on the individual buttons within the element.
 
     <basic-sequence
       id="sequence"
-      selected="{{selected}}"
       canGoNext="{{canGoNext}}"
       canGoPrevious="{{canGoPrevious}}"
-      effect="{{effect}}">
+      effect="{{effect}}"
+      selected="{{selected}}"
+      wrapAround="{{wrapAround}}"
+      >
       <content></content>
     </basic-sequence>
 
