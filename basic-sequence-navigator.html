@@ -49,7 +49,7 @@ Use icons from core-icon
 
   <div id="sequenceNavigationContainer" tabindex="0">
 
-    <button id="buttonPrevious" class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1">
+    <button id="buttonPrevious" class="navigationButton" on-tap="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1" aria-label="Previous" aria-controls="sequence">
       <core-icon icon="chevron-left" size="36"></core-icon>
     </button>
 
@@ -62,7 +62,7 @@ Use icons from core-icon
       <content></content>
     </basic-sequence>
 
-    <button id="buttonNext" class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1">
+    <button id="buttonNext" class="navigationButton" on-tap="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1" aria-label="Next" aria-controls="sequence">
       <core-icon icon="chevron-right" size="36"></core-icon>
     </button>
 
