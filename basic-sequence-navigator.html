@@ -13,12 +13,12 @@ Use icons from core-icon
 <template>
   <style>
   :host {
-    display: block;
+    display: inline-block;
    }
 
   #sequenceNavigationContainer {
-    -webkit-align-items: center; /* Safari */
-    align-items: center;
+    -webkit-align-items: stretch; /* Safari */
+    align-items: stretch;
     display: -webkit-flex; /* Safari */
     display: flex;
   }
@@ -35,6 +35,10 @@ Use icons from core-icon
     padding: 0;
   }
   .navigationButton:hover:not(:disabled) {
+    background: #eee;
+    fill: #333;
+  }
+  .navigationButton:active:not(:disabled) {
     background: #ddd;
     fill: black;
   }
@@ -42,10 +46,13 @@ Use icons from core-icon
     fill: #aaa;
   }
   </style>
+
   <div id="sequenceNavigationContainer" tabindex="0">
+
     <button id="buttonPrevious" class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1">
       <core-icon icon="chevron-left" size="36"></core-icon>
     </button>
+
     <basic-sequence
       id="sequence"
       selected="{{selected}}"
@@ -54,9 +61,11 @@ Use icons from core-icon
       effect="{{effect}}">
       <content></content>
     </basic-sequence>
+
     <button id="buttonNext" class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1">
       <core-icon icon="chevron-right" size="36"></core-icon>
     </button>
+
   </div>
 </template>
 
@@ -121,7 +130,7 @@ Polymer( "basic-sequence-navigator", {
 
   _handleButtonMousedown: function( event ) {
     event.preventDefault();
-    this.$.sequenceNavigationContainer.focus();    
+    this.$.sequenceNavigationContainer.focus();
   }
   
 });
