@@ -1,12 +1,23 @@
+<!--
+Lets the user navigate through a sequence of child elements using next/previous
+buttons and arrow keys.
+
+This builds on basic-sequence, which handles the actual task of moving between
+the items. To this, basic-sequence-navigator adds:
+
+* A pair of buttons for moving next/previous.
+* Keyboard support: the user can press the Right/Left arrows to move next/previous.
+
+The default keyboard support only applies when the element has focus. To
+emphasize this fact, the entire element shows a focus rectangle, rather than
+showing focus on the individual buttons within the element.
+
+@element basic-sequence-navigator
+-->
+
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../core-icons/core-icons.html">
 <link rel="import" href="../basic-sequence/basic-sequence.html">
-
-<!--
-TODO: Make component focusable, don't wire up document handler (by default).
-outline: -webkit-focus-ring-color auto 5px;
-Use icons from core-icon
--->
 
 <polymer-element name="basic-sequence-navigator" attributes="effect selected">
 
