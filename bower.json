@@ -6,6 +6,7 @@
   "main": "basic-sequence-navigator.html",
   "dependencies": {
     "basic-sequence": "basic-web-components/basic-sequence#master",
+    "core-icons": "Polymer/core-icons#master",
     "polymer": "Polymer/polymer#master"
   },
   "dev-dependencies": {

@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-icons/core-icons.html">
 <link rel="import" href="../basic-sequence/basic-sequence.html">
 
 <!--
@@ -13,7 +14,7 @@ Use icons from core-icon
   <style>
   :host {
     display: block;
-  }
+   }
 
   #sequenceNavigationContainer {
     -webkit-align-items: center; /* Safari */
@@ -21,28 +22,30 @@ Use icons from core-icon
     display: -webkit-flex; /* Safari */
     display: flex;
   }
+  #sequenceNavigationContainer:focus {
+    outline: 1px dotted; /* Safari/IE */
+    outline: auto 5px -webkit-focus-ring-color; /* Chrome/Webkit */
+  }
 
   .navigationButton {
     background: white;
     border: 1px solid transparent;
     box-sizing: border-box;
-    color: #444;
-    font-family: monospace; /* Less than/greater than tend to look better */
-    font-size: 1.5em;
-    font-weight: bold;
-    height: 1.5em;
     margin: 0;
+    padding: 0;
   }
   .navigationButton:hover:not(:disabled) {
     background: #ddd;
-    color: black;
+    fill: black;
   }
   .navigationButton:disabled {
-    color: #aaa;
+    fill: #aaa;
   }
   </style>
-  <div id="sequenceNavigationContainer">
-    <button class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}">&lt;</button>
+  <div id="sequenceNavigationContainer" tabindex="0">
+    <button id="buttonPrevious" class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1">
+      <core-icon icon="chevron-left" size="36"></core-icon>
+    </button>
     <basic-sequence
       id="sequence"
       selected="{{selected}}"
@@ -51,7 +54,9 @@ Use icons from core-icon
       effect="{{effect}}">
       <content></content>
     </basic-sequence>
-    <button class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}">&gt;</button>
+    <button id="buttonNext" class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1">
+      <core-icon icon="chevron-right" size="36"></core-icon>
+    </button>
   </div>
 </template>
 
@@ -69,8 +74,23 @@ Polymer( "basic-sequence-navigator", {
   },
 
   ready: function() {
+
     this.super();
-    document.addEventListener( "keydown", function( event ) {
+
+    // We want the overall element to get the focus.
+    var buttonMousedownHandler = function( event ) {
+      this._handleButtonMousedown( event );
+    }.bind( this );
+    this.$.buttonPrevious.addEventListener( "mousedown", buttonMousedownHandler );
+    this.$.buttonNext.addEventListener( "mousedown", buttonMousedownHandler );
+    this.addEventListener( "click", function() {
+      if ( document.activeElement !== this ) {
+        this.$.sequenceNavigationContainer.focus();
+      }
+    }.bind( this ));
+
+    // Default keyboard navigation (applies only when we have focus).
+    this.addEventListener( "keydown", function( event ) {
       var handled;
       switch ( event.which ) { 
         case 37: // Left
@@ -97,6 +117,11 @@ Polymer( "basic-sequence-navigator", {
    */
   previous: function() {
     this.$.sequence.previous();
+  },
+
+  _handleButtonMousedown: function( event ) {
+    event.preventDefault();
+    this.$.sequenceNavigationContainer.focus();    
   }
   
 });

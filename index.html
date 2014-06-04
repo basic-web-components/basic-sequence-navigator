@@ -32,20 +32,32 @@ img {
 
 <body unresolved>
 <basic-framed-content>
-<basic-sequence-navigator effect="slide">
+<template is="auto-binding">
+  <p>
+    Effect:
+    <select value="{{effect}}">
+      <option value="">(None)</option>
+      <option value="cover">Cover</option>
+      <option value="crossfade">Cross-fade</option>
+      <option value="reveal">Reveal</option>
+      <option value="slide">Slide</option>
+    </select>
+  </p>
+  <basic-sequence-navigator effect="{{effect}}">
+    <img src="http://lorempixel.com/300/225/nature/1">
+    <img src="http://lorempixel.com/300/225/nature/2">
+    <img src="http://lorempixel.com/300/225/nature/3">
+    <img src="http://lorempixel.com/300/225/nature/4">
+    <img src="http://lorempixel.com/300/225/nature/5">
 <!--
-  <img src="http://lorempixel.com/400/300/nature/1">
-  <img src="http://lorempixel.com/400/300/nature/2">
-  <img src="http://lorempixel.com/400/300/nature/3">
-  <img src="http://lorempixel.com/400/300/nature/4">
-  <img src="http://lorempixel.com/400/300/nature/5">
+    <img src="image1.jpeg">
+    <img src="image2.jpeg">
+    <img src="image3.jpeg">
+    <img src="image4.jpeg">
+    <img src="image5.jpeg">
 -->
-  <img src="image1.jpeg">
-  <img src="image2.jpeg">
-  <img src="image3.jpeg">
-  <img src="image4.jpeg">
-  <img src="image5.jpeg">
-</basic-sequence-navigator>
+  </basic-sequence-navigator>
+</template>
 </basic-framed-content>
 </body>
 
