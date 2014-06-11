@@ -34,12 +34,17 @@ showing focus on the individual buttons within the element.
    }
 
   #sequenceNavigationContainer {
-    display: -webkit-flex; /* Safari */
+    display: none;  /* Safari. See notes at attached(). */
     display: flex;
   }
   #sequenceNavigationContainer:focus {
     outline: 1px dotted; /* Safari/IE */
     outline: auto 5px -webkit-focus-ring-color; /* Chrome/Webkit */
+  }
+
+  #sequence {
+    -webkit-flex: 1;*/
+    flex: 1; /* Not to stretch it, but to ensure in shrinks in tight widths. */
   }
 
   .navigationButton {
@@ -97,14 +102,18 @@ Polymer( "basic-sequence-navigator", {
      * doesn't seem to get rendered properly. If we apply it after the element
      * renders, WebKit seems to get the hint and actually apply the flex box
      * styling. This produces some annoying flash, but is better than the
-     * element not rendering at all.
+     * element not rendering at all. Use a timeout to give things time to render.
      */
-    setTimeout( function() {
-      if ( getComputedStyle( this ).display === "none" ) {
+    if ( getComputedStyle( this ).display === "none" ) {
+      setTimeout( function() {
         /* Browser didn't pick up "flex" -> we're on WebKit. */
         this.style.display = "-webkit-flex";
-      }
-    }.bind( this ), 1);
+        /* Seems we also need to give above change time to render. Ugh. */
+        setTimeout( function() {
+          this.$.sequenceNavigationContainer.style.display = "-webkit-flex";
+        }.bind( this ), 1);
+      }.bind( this ), 1);
+    }
   },
 
   effect: "slide",
