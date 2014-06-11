@@ -29,7 +29,6 @@ showing focus on the individual buttons within the element.
      * We'd like to apply -webkit-flex here, but it doesn't work; see notes
      * in attached() handler.
      */
-    /* display: -webkit-flex; */
     display: none; /* Will get overwritten with next line or by attached(). */
     display: flex;
    }
@@ -65,7 +64,9 @@ showing focus on the individual buttons within the element.
 
   <div id="sequenceNavigationContainer" tabindex="0">
 
-    <button id="buttonPrevious" class="navigationButton" on-tap="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1" aria-label="Previous" aria-controls="sequence">
+    <!-- We'd like to use on-tap with these buttons, but as of 6/11/14, that's
+    no working in IE 11. -->
+    <button id="buttonPrevious" class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1" aria-label="Previous" aria-controls="sequence">
       <core-icon icon="chevron-left" size="36"></core-icon>
     </button>
 
@@ -80,7 +81,7 @@ showing focus on the individual buttons within the element.
       <content></content>
     </basic-sequence>
 
-    <button id="buttonNext" class="navigationButton" on-tap="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1" aria-label="Next" aria-controls="sequence">
+    <button id="buttonNext" class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1" aria-label="Next" aria-controls="sequence">
       <core-icon icon="chevron-right" size="36"></core-icon>
     </button>
 
@@ -99,7 +100,10 @@ Polymer( "basic-sequence-navigator", {
      * element not rendering at all.
      */
     setTimeout( function() {
-      this.style.display = "-webkit-flex";
+      if ( getComputedStyle( this ).display === "none" ) {
+        /* Browser didn't pick up "flex" -> we're on WebKit. */
+        this.style.display = "-webkit-flex";
+      }
     }.bind( this ), 1);
   },
 
