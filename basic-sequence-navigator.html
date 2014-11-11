@@ -69,9 +69,7 @@ showing focus on the individual buttons within the element.
 
   <div id="sequenceNavigationContainer" tabindex="0">
 
-    <!-- We'd like to use on-tap with these buttons, but as of 6/11/14, that's
-    no working in IE 11. -->
-    <button id="buttonPrevious" class="navigationButton" on-click="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1" aria-label="Previous" aria-controls="sequence">
+    <button id="buttonPrevious" class="navigationButton" on-tap="{{previous}}" disabled?="{{!canGoPrevious}}" tabindex="-1" aria-label="Previous" aria-controls="sequence">
       <core-icon icon="chevron-left" size="36"></core-icon>
     </button>
 
@@ -86,7 +84,7 @@ showing focus on the individual buttons within the element.
       <content></content>
     </basic-sequence>
 
-    <button id="buttonNext" class="navigationButton" on-click="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1" aria-label="Next" aria-controls="sequence">
+    <button id="buttonNext" class="navigationButton" on-tap="{{next}}" disabled?="{{!canGoNext}}" tabindex="-1" aria-label="Next" aria-controls="sequence">
       <core-icon icon="chevron-right" size="36"></core-icon>
     </button>
 
